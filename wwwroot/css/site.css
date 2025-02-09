@@ -1,0 +1,38 @@
+﻿::-webkit-scrollbar {
+    display: none;
+}
+.text-center{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 20px;
+}
+.cont-butts {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 20px;
+}
+.cont-butt{
+    width: 50%;
+    border: none;
+    border-left: 1px solid black;
+    padding: 30px 10px;
+
+    margin-bottom: 20px;
+}
+.pisanina{
+/*    padding-left: 250px;*/
+    text-align: justify;
+}
+.item {
+    max-width: 200px;
+    min-width: 200px;
+    padding: 50px 10px;
+    border-radius: 6px;
+    align-self: center;
+    margin: 10px;
+}
+#catalog_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
