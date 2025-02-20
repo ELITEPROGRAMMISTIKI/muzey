@@ -1,18 +1,24 @@
 ﻿::-webkit-scrollbar {
     display: none;
 }
-.text-center{
+
+.text-center {
     display: grid;
     grid-template-columns: 1fr 5fr;
     gap: 20px;
 }
+
 .cont-butts {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    padding: 30px 0;
     position: sticky;
     top: 20px;
     background-color: rgba(247, 244, 242, 1);
 }
+
 .cont-butt {
     width: 80%;
     border: none;
@@ -21,18 +27,45 @@
     background-color: rgba(175, 174, 179, 1);
     color: white;
 }
-.pisanina{
-/*    padding-left: 250px;*/
-    text-align: justify;
+
+.cont-butt:hover {
+    background-color: rgba(77, 80, 97, 1);
 }
-header nav, ul, nav .container {
+.pisanina {
+    /*    padding-left: 250px;*/
+    text-align: justify;
+    margin-bottom: 80px;
+}
+
+header nav, ul, nav .container, footer {
     background-color: rgba(211, 208, 177, 1);
 }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+header .navbar, footer {
+    padding: 0;
+    height: 70px;
+}
+
+header ul {
+    height: 100%;
+}
+
 .nav-item {
     background-color: rgba(147, 6, 23, 1);
-    color: white;
-
+    margin-right: 20px;
+    height: 100%;
 }
+
+.nav-link {
+    color: white !important;
+}
+
 .item {
     max-width: 200px;
     min-width: 200px;
@@ -41,6 +74,7 @@ header nav, ul, nav .container {
     align-self: center;
     margin: 10px;
 }
+
 #catalog_grid {
     align-self: center;
     width: 80%;
@@ -49,10 +83,12 @@ header nav, ul, nav .container {
     gap: 10px;
     align-content: center;
 }
-main{
+
+main {
     display: flex;
     flex-direction: column;
 }
+
 .cont-add-ysl {
     margin-top: 40px;
     display: flex;
@@ -61,14 +97,17 @@ main{
     flex-direction: column;
     align-items: center;
 }
-.cont-add-ysl textarea,input{
-    width: 100%;
-    margin-bottom: 20px;
-}
-    .cont-add-ysl textarea{
+
+    .cont-add-ysl textarea, input {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .cont-add-ysl textarea {
         height: 200px;
     }
-    .cont-add-ysl button{
+
+    .cont-add-ysl button {
         width: 50%;
         height: 50px;
         border: none;

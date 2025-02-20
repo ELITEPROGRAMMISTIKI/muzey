@@ -9,8 +9,11 @@ $(document).on('click', '.nav-link[data-page="add_ysl"]', function (e) {
     ShowAddYslPage();
 })
 $(document).on('click', '.cont-butt[data-action="history"]', function (e) {
-    e.preventDefault();
+    e.preventDefault(); 
     ShowHistory();
+})
+$(document).on('mousedown', '.cont-butt[data-action="history"]', function (e) {
+    $(`.cont-butt[data-action="history"]`).css(`background-color : rgba(77, 80, 97, 1)`);
 })
 const ShowCatalogPage = () => {
     $('main').html(
@@ -18,7 +21,7 @@ const ShowCatalogPage = () => {
         <div id = "catalog_grid" ></div>
         `
     )
-    SearchCatalog();
+    SearchCatalog(); 
 }
 const ShowHistory = () => {
     $('.pisanina').html(
