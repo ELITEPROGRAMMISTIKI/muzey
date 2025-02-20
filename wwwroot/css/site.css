@@ -11,18 +11,27 @@
     flex-direction: column;
     position: sticky;
     top: 20px;
+    background-color: rgba(247, 244, 242, 1);
 }
-.cont-butt{
-    width: 50%;
+.cont-butt {
+    width: 80%;
     border: none;
-    border-left: 1px solid black;
-    padding: 30px 10px;
-
+    padding: 20px 10px;
     margin-bottom: 20px;
+    background-color: rgba(175, 174, 179, 1);
+    color: white;
 }
 .pisanina{
 /*    padding-left: 250px;*/
     text-align: justify;
+}
+header nav, ul, nav .container {
+    background-color: rgba(211, 208, 177, 1);
+}
+.nav-item {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+
 }
 .item {
     max-width: 200px;
@@ -33,6 +42,34 @@
     margin: 10px;
 }
 #catalog_grid {
+    align-self: center;
+    width: 80%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    align-content: center;
 }
+main{
+    display: flex;
+    flex-direction: column;
+}
+.cont-add-ysl {
+    margin-top: 40px;
+    display: flex;
+    align-self: center;
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+}
+.cont-add-ysl textarea,input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+    .cont-add-ysl textarea{
+        height: 200px;
+    }
+    .cont-add-ysl button{
+        width: 50%;
+        height: 50px;
+        border: none;
+    }
