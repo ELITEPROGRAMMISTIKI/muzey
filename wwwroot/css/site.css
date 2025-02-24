@@ -18,7 +18,9 @@
     top: 20px;
     background-color: rgba(247, 244, 242, 1);
 }
-
+.navbar-brand{
+    font-weight: bold;
+}
 .cont-butt {
     width: 80%;
     border: none;
