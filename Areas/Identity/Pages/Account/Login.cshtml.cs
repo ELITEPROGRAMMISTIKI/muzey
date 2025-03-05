@@ -26,6 +26,7 @@ namespace muzey.Areas.Identity.Pages.Account
         {
             _signInManager = signInManager;
             _logger = logger;
+
         }
 
         /// <summary>
@@ -66,6 +67,7 @@ namespace muzey.Areas.Identity.Pages.Account
             /// </summary>
             [Required(ErrorMessage = "Поле необходимо для заполнения")]
             [EmailAddress(ErrorMessage = "Неккоректный email")]
+            [DataType(DataType.EmailAddress)]
             public string Email { get; set; }
 
             /// <summary>
@@ -82,6 +84,7 @@ namespace muzey.Areas.Identity.Pages.Account
             /// </summary>
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -109,22 +112,34 @@ namespace muzey.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                _logger.LogInformation("Email: {0}, Password: {1}", Input.Email, Input.Password);
+
+                var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                if (user != null) {
+
+
+                    var passwordValid = await _signInManager.UserManager.CheckPasswordAsync(user, Input.Password);
+                    if (passwordValid)
+                    {
+
+                        await _signInManager.SignInAsync(user, Input.RememberMe);
+                        _logger.LogInformation("User logged in.");
+
+                        // Теперь можно добавить имя пользователя в контекст
+                        var userName = user.UserName;  // Получаем имя пользователя
+
+                        // Передаем его в ViewData, чтобы можно было отобразить на странице
+                        ViewData["UserName"] = userName;
+
+                        return LocalRedirect(returnUrl);
+                    }
+                else
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    
+
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
                 }
                 else
                 {
@@ -132,7 +147,7 @@ namespace muzey.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
-
+                
             // If we got this far, something failed, redisplay form
             return Page();
         }

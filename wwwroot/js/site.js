@@ -9,12 +9,17 @@ $(document).on('click', '.nav-link[data-page="add_ysl"]', function (e) {
     ShowAddYslPage();
 })
 $(document).on('click', '.cont-butt[data-action="history"]', function (e) {
+    $(`.cont-butt[data-action="history"]`).css(`background-color : rgba(77, 80, 97, 1)`);
     e.preventDefault(); 
     ShowHistory();
+
 })
-$(document).on('mousedown', '.cont-butt[data-action="history"]', function (e) {
-    $(`.cont-butt[data-action="history"]`).css(`background-color : rgba(77, 80, 97, 1)`);
+$(document).on('click', '.item[data-action="buy"]', function (e) {
+    e.preventDefault(); 
+    const itemId = $(this).data('id');
+    OpenYsl(itemID);
 })
+
 const ShowCatalogPage = () => {
     $('main').html(
         `<p>Страница каталога</p> 
@@ -63,6 +68,7 @@ const ShowAddYslPage = () => {
         <div class="cont-add-ysl">
         <input data-id="add_new_ysl_name" placeholder = "Название">
         <textarea data-id="add_ysl_description" placeholder="Описание"></textarea>
+        <input type="date" data-id="add_new_ysl_date" placeholder = "Дата">
         <input data-id="add_new_ysl_price" placeholder="Цена">
         <button data-action="add_new_ysl">Добавить услугу</button>
         </div>`
@@ -72,6 +78,7 @@ const ShowAddYslPage = () => {
     $(document).on('click', 'button[data-action="add_new_ysl"]', function () {
         let name = $('input[data-id="add_new_ysl_name"]').val()
         let description = $('textarea[data-id="add_ysl_description"]').val()
+        let date = $('input[data-id="add_new_ysl_date"]').val()
         let price = $('input[data-id="add_new_ysl_price"]').val()
 
         $.ajax({
@@ -81,10 +88,34 @@ const ShowAddYslPage = () => {
             data: JSON.stringify({
                 name,
                 description,
+                date,
                 price
             })
         })
-})
+    })
+const OpenYsl = (itemId) => {
+    $.ajax({
+        url: `api/catalogcontrollers/${itemId}`, // Здесь будет вызов API с параметром товара
+        method: 'GET'
+    }).done(function (data) {
+        // Предполагаем, что в data содержатся все необходимые данные товара
+        $('.pb-3').html(
+            `
+            <div class="big-card">
+                <h2>${data.name}</h2>
+                <p>${data.date}</p>
+                <p>${data.description}</p>
+                <p>Цена: ${data.price}</p>
+                <img src="${data.imageUrl}" alt="product image">
+            </div>
+            `
+        );
+    }).fail(function (error) {
+        console.log("Ошибка загрузки данных", error);
+    });
+}
+    
+
 const SearchCatalog = () => {
 $.ajax({
     url: 'api/catalogcontrollers',
@@ -95,8 +126,10 @@ $.ajax({
         <button data-action="buy" class="item">
        
         
-        <p>${this.name}</p>
-        <p> ${this.price}</p>
+        <p class="right marg">${this.name}</p>
+        <p >${this.date}</p>
+        <p class="right bigger"> ${this.price} р.</p>
+        <p class="right little marg"> Нажмите для подробностей </p>
        
         </button>
         `)

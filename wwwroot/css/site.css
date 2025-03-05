@@ -18,9 +18,13 @@
     top: 20px;
     background-color: rgba(247, 244, 242, 1);
 }
-.navbar-brand{
+
+a.navbar-brand, a.navbar-brand:active {
+    font-size: 25px;
     font-weight: bold;
+    color: rgba(156, 122, 97, 1) !important;
 }
+
 .cont-butt {
     width: 80%;
     border: none;
@@ -30,9 +34,10 @@
     color: white;
 }
 
-.cont-butt:hover {
-    background-color: rgba(77, 80, 97, 1);
-}
+    .cont-butt:hover {
+        background-color: rgba(77, 80, 97, 1);
+    }
+
 .pisanina {
     /*    padding-left: 250px;*/
     text-align: justify;
@@ -68,14 +73,6 @@ header ul {
     color: white !important;
 }
 
-.item {
-    max-width: 200px;
-    min-width: 200px;
-    padding: 50px 10px;
-    border-radius: 6px;
-    align-self: center;
-    margin: 10px;
-}
 
 #catalog_grid {
     align-self: center;
@@ -86,6 +83,28 @@ header ul {
     align-content: center;
 }
 
+.item {
+    max-width: 200px;
+    min-width: 200px;
+    padding: 30px 20px;
+    border-radius: 6px;
+    align-self: center;
+    margin: 10px;
+    border: none;
+}
+.right{
+   text-align: left;
+}
+.little{
+    font-size: 12px;
+}
+.marg {
+    margin: 0;
+}
+.bigger{
+    font-size: 20px;
+    font-weight: bold;
+}
 main {
     display: flex;
     flex-direction: column;
