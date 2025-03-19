@@ -1,11 +1,27 @@
-﻿::-webkit-scrollbar {
+﻿@font-face {
+    font-family: "Ruslan";
+    src: url("../css/fonts/RuslanDisplay.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Arsenal";
+    src: url("../css/fonts/ArsenalSC-Regular.ttf") format("truetype");
+}
+
+/* Базовый стиль для всего body */
+body {
+    font-family: 'Arsenal', sans-serif;
+    
+}
+
+::-webkit-scrollbar {
     display: none;
 }
 
 .text-center {
     display: grid;
     grid-template-columns: 1fr 5fr;
-    gap: 20px;
+    gap: 50px;
 }
 
 .cont-butts {
@@ -19,25 +35,59 @@
     background-color: rgba(247, 244, 242, 1);
 }
 
+/* Специальные стили с Ruslan Display */
 a.navbar-brand, a.navbar-brand:active {
     font-size: 25px;
     font-weight: bold;
     color: rgba(156, 122, 97, 1) !important;
+    font-family: 'Ruslan', sans-serif;
 }
 
-.cont-butt {
+h1 {
+    margin: 30px 0;
+    font-family: 'Ruslan', sans-serif;
+}
+
+.cont-butts h3 {
+    font-family: 'Ruslan', sans-serif;
+}
+
+    .col-md-4, h1.center {
+        align-self: center;
+    }
+
+.coolForm {
+    background-color: rgba(247, 244, 242, 1);
+    padding: 20px;
+}
+.form-floating > textarea {
+    height: 400px;
+    resize: none;
+}
+.logo {
+    background: url(https://www.pushkinmuseum.ru/sites/all/themes/museum/css/img/pshkn.png) no-repeat left;
+    background-size: 150px;
+}
+button.cont-butt {
     width: 80%;
     border: none;
     padding: 20px 10px;
     margin-bottom: 20px;
     background-color: rgba(175, 174, 179, 1);
     color: white;
+    font-weight: 700;
+
 }
 
-    .cont-butt:hover {
+    button.cont-butt:hover {
         background-color: rgba(77, 80, 97, 1);
     }
-
+    a.cont-butt{
+        color: rgba(175, 174, 179, 1);
+    }
+        a.cont-butt:hover {
+            filter: brightness(70%);
+        }
 .pisanina {
     /*    padding-left: 250px;*/
     text-align: justify;
@@ -49,9 +99,9 @@ header nav, ul, nav .container, footer {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
+    position: relative;  /* или можно вообще убрать position */
     width: 100%;
+    background-color: rgba(211, 208, 177, 1);
 }
 
 header .navbar, footer {
@@ -63,16 +113,56 @@ header ul {
     height: 100%;
 }
 
-.nav-item {
+.submit {
+    color: white;
+    margin-bottom: 20px;
+}
+
+    .submit:hover, .nav-link:hover {
+        color: white;
+        filter: brightness(80%);
+    }
+
+.nav-item, .submit {
+    border: none;
+    border-radius: unset;
     background-color: rgba(147, 6, 23, 1);
     margin-right: 20px;
     height: 100%;
 }
 
+.link, .link:active {
+    color: rgba(175, 174, 179, 1);
+    text-decoration: none;
+}
+
 .nav-link {
     color: white !important;
 }
+.navbar {
+    align-items: initial;
+}
+.table {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 50px;
+}
 
+    .table:nth-child(odd) {
+        padding: 0;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .table:nth-child(even) {
+        text-align: left;
+        align-items: center;
+    }
+
+.kartinka {
+    height: 500px;
+    align-self: center;
+}
 
 #catalog_grid {
     align-self: center;
@@ -92,19 +182,24 @@ header ul {
     margin: 10px;
     border: none;
 }
-.right{
-   text-align: left;
+
+.right {
+    text-align: left;
 }
-.little{
+
+.little {
     font-size: 12px;
 }
+
 .marg {
     margin: 0;
 }
-.bigger{
+
+.bigger {
     font-size: 20px;
     font-weight: bold;
 }
+
 main {
     display: flex;
     flex-direction: column;
@@ -133,3 +228,146 @@ main {
         height: 50px;
         border: none;
     }
+
+.big-card {
+    background-color: rgba(175, 174, 179, 1);
+    display: felx;
+    align-self: center;
+    height: 700px;
+    width: 80%;
+    align-content: center;
+    justify-items: center;
+}
+
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: calc(100vh - 140px);
+    padding: 20px;
+    background-color: rgba(247, 244, 242, 1);
+}
+
+.review-form-wrapper, .review-item-wrapper {
+    background-color: rgba(237, 234, 232, 1); /* Немного темнее чем основной фон */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.review-form-wrapper {
+    margin-bottom: 20px;
+}
+
+.review-form {
+    padding: 20px;
+}
+
+.review-item-wrapper {
+    margin-bottom: 15px;
+}
+
+.review-item {
+    padding: 15px;
+    color: #333;
+}
+
+/* Остальные стили для внутренних элементов */
+.textarea-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+    max-height: 150px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: vertical;
+    background-color: white;
+}
+
+.char-counter {
+    color: #333;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.review-form button.submit {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 0; /* Убираем лишний отступ снизу */
+}
+
+.review-form button.submit:hover {
+    filter: brightness(80%);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.review-date {
+    color: rgba(0, 0, 0, 0.5); /* Полупрозрачный текст */
+    font-size: 0.9em; /* Немного уменьшаем размер шрифта */
+}
+
+.review-author {
+    font-weight: bold;
+}
+
+.review-text {
+    margin-bottom: 10px;
+}
+
+.review-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.delete-review {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-review:hover {
+    filter: brightness(80%);
+}
+
+/* Стилизация скроллбара */
+.reviews-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.reviews-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.reviews-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.reviews-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

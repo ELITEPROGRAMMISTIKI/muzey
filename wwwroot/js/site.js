@@ -9,15 +9,68 @@ $(document).on('click', '.nav-link[data-page="add_ysl"]', function (e) {
     ShowAddYslPage();
 })
 $(document).on('click', '.cont-butt[data-action="history"]', function (e) {
-    $(`.cont-butt[data-action="history"]`).css(`background-color : rgba(77, 80, 97, 1)`);
     e.preventDefault(); 
     ShowHistory();
 
 })
+$(document).on('click', '.cont-butt[data-action="otzivi"]', function (e) {
+    e.preventDefault();
+    ShowOtzivi();
+
+})
+
+$(document).on('click', '.cont-butt[data-action="collections"]', function (e) {
+    e.preventDefault(); 
+    ShowCollections();
+})
+$(document).on('click', '.cont-butt[data-action="otzivi"]', function (e) {
+    e.preventDefault();
+    ShowOtzivi();
+
+})
+
+// Добавляем обработчик отправки отзыва
+$(document).on('click', 'button[data-action="submit-review"]', function(e) {
+    e.preventDefault();
+    const text = $('#reviewText').val();
+    
+    if (!text) {
+        alert('Пожалуйста, введите текст отзыва');
+        return;
+    }
+
+    $.ajax({
+        method: 'POST',
+        url: 'api/reviews/add',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            text: text
+        })
+    }).done(function(response) {
+        console.log('Success:', response);
+        LoadReviews();
+        $('#reviewText').val('');
+    }).fail(function(error) {
+        console.error('Error:', error);
+        alert('Произошла ошибка при отправке отзыва');
+    });
+});
+$(document).on('click', '.cont-butt[data-action="news"]', function (e) {
+    e.preventDefault();
+    ShowNews();
+
+
+})
+$(document).on('click', '.cont-butt[data-action="contacts"]', function (e) {
+    e.preventDefault();
+    ShowContacts();
+})
+
 $(document).on('click', '.item[data-action="buy"]', function (e) {
     e.preventDefault(); 
-    const itemId = $(this).data('id');
-    OpenYsl(itemID);
+    const itemId = $(this).attr('data-id');
+    console.log(itemId);
+    OpenYsl(itemId);
 })
 
 const ShowCatalogPage = () => {
@@ -28,6 +81,10 @@ const ShowCatalogPage = () => {
     )
     SearchCatalog(); 
 }
+//$(document).on('click', '.nav - link[data - action="accaunt"]', function (e) {
+//    e.preventDefault():
+//    OpenAkk();
+//})
 const ShowHistory = () => {
     $('.pisanina').html(
         `
@@ -62,6 +119,170 @@ const ShowHistory = () => {
 </p>     `
     )
 }
+
+const ShowCollections = () => {
+    $('.pisanina').html(
+        `
+        <h1>Коллекции музея</h1>
+
+        <div class=" table">
+       
+       
+        <img src="https://www.pushkinmuseum.ru/sites/default/files/pictures/event/sozdanie-materiala-predmet/komovokpushkinigoncharova-1200.jpeg" class="kartinka">
+       
+        <p>
+        А.С. Пушкин и Н.Н. Гончарова
+        <br>
+        О.К. Комов
+        <br>
+        1972
+        <br>
+        Бронза, патинирование
+        </p>
+       
+
+
+      
+        <img src="https://www.pushkinmuseum.ru/sites/default/files/pictures/event/sozdanie-materiala-predmet/kp1744vvkozlovpushkinnaprogulke.jpg" class="kartinka">
+       
+ 
+        <p>
+        Пушкин на прогулке
+        <br>
+        В.В. Козлов
+        </p>
+        </div>
+
+        `
+    )
+}
+
+const ShowNews = () => {
+    $('.pisanina').html(
+        `
+        <h1>Новости</h1>
+        `
+    )
+}
+
+const ShowOtzivi = () => {
+    $('.pisanina').html(
+        `
+        <h1>Отзывы</h1>
+        <div class="reviews-container">
+            <div class="review-form-wrapper">
+                <div class="review-form">
+                    <div class="textarea-wrapper">
+                        <textarea id="reviewText" placeholder="Напишите отзыв" maxlength="2000"></textarea>
+                        <div class="char-counter"><span id="charCount">0</span>/2000</div>
+                    </div>
+                    <button class="submit" data-action="submit-review">Отправить</button>
+                </div>
+            </div>
+            <div class="reviews-list" id="reviewsList">
+                <!-- Здесь будут отображаться отзывы -->
+            </div>
+        </div>
+        `
+    );
+    
+    // Загружаем отзывы сразу после отрисовки HTML
+    LoadReviews();
+}
+
+// Добавим функцию проверки роли администратора
+let isAdmin = false;
+
+// Функция проверки роли админа
+const checkAdminRole = () => {
+    return $.ajax({
+        method: 'GET',
+        url: 'api/reviews/checkAdmin'
+    }).then(response => {
+        isAdmin = response;
+        return isAdmin;
+    });
+};
+
+// Функция загрузки отзывов
+const LoadReviews = () => {
+    checkAdminRole().then(() => {
+        $.ajax({
+            method: 'GET',
+            url: 'api/reviews/get',
+            success: function(reviews) {
+                const reviewsList = $('#reviewsList');
+                reviewsList.empty();
+                
+                reviews.forEach(review => {
+                    const deleteButton = isAdmin ? 
+                        `<button class="delete-review" data-review-id="${review.id}">Удалить</button>` : '';
+                    
+                    reviewsList.append(`
+                        <div class="review-item-wrapper">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <span class="review-author">${review.name || 'Гость'}</span>
+                                    <span class="review-date">${new Date(review.dateReview).toLocaleDateString()}</span>
+                                </div>
+                                <div class="review-text">${review.text}</div>
+                                <div class="review-footer">
+                                    ${deleteButton}
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+            },
+            error: function(error) {
+                console.error('Error loading reviews:', error);
+            }
+        });
+    });
+}
+
+// Добавим обработчик удаления отзыва
+$(document).on('click', '.delete-review', function() {
+    const reviewId = $(this).data('review-id');
+    if (confirm('Вы уверены, что хотите удалить этот отзыв?')) {
+        $.ajax({
+            method: 'DELETE',
+            url: `api/reviews/delete/${reviewId}`,
+            success: function() {
+                LoadReviews(); // Перезагружаем отзывы после удаления
+            },
+            error: function(error) {
+                console.error('Error deleting review:', error);
+                alert('Произошла ошибка при удалении отзыва');
+            }
+        });
+    }
+});const ShowContacts = () => {
+    $('.pisanina').html(
+        `
+        <h1>Контакты</h1>
+
+        <h2>Адрес</h2>
+        <p> </p>
+
+        <h2>Информационно-справочная служба музея </h2>
+        <p> </p>
+
+        <h2>Режим работы</h2>
+        <p> </p>
+
+        <h2>Экскурсионное бюро</h2>
+        <p> </p>
+        `
+    )
+}
+
+//const OpenAkk = () => {
+//    $('main').html(
+
+
+//    )
+//}
 const ShowAddYslPage = () => {
     $('main').html(
         `<h1 align="center">Добавление новой услуги</h1>
@@ -78,7 +299,7 @@ const ShowAddYslPage = () => {
     $(document).on('click', 'button[data-action="add_new_ysl"]', function () {
         let name = $('input[data-id="add_new_ysl_name"]').val()
         let description = $('textarea[data-id="add_ysl_description"]').val()
-        let date = $('input[data-id="add_new_ysl_date"]').val()
+        let eventDate = $('input[data-id="add_new_ysl_date"]').val()
         let price = $('input[data-id="add_new_ysl_price"]').val()
 
         $.ajax({
@@ -88,25 +309,29 @@ const ShowAddYslPage = () => {
             data: JSON.stringify({
                 name,
                 description,
-                date,
+                eventDate,
                 price
             })
         })
     })
 const OpenYsl = (itemId) => {
     $.ajax({
-        url: `api/catalogcontrollers/${itemId}`, // Здесь будет вызов API с параметром товара
-        method: 'GET'
+        url: `api/catalogcontrollers`, 
+        method: 'GET',
+        data: { id: itemId }, 
     }).done(function (data) {
-        // Предполагаем, что в data содержатся все необходимые данные товара
+        console.log(data);
+        data = data.find(p => p.id == itemId);
+        console.log(data);
+
+      
         $('.pb-3').html(
             `
             <div class="big-card">
-                <h2>${data.name}</h2>
-                <p>${data.date}</p>
+                <h2>${data.name}</h2>  
+                <p>${data.eventDate}</p>
                 <p>${data.description}</p>
                 <p>Цена: ${data.price}</p>
-                <img src="${data.imageUrl}" alt="product image">
             </div>
             `
         );
@@ -123,11 +348,10 @@ $.ajax({
 }).done(function (data) {
     $.each(data, function() {
         $('#catalog_grid').append(`
-        <button data-action="buy" class="item">
-       
+        <button data-action="buy" class="item" data-id="${this.id}">
         
         <p class="right marg">${this.name}</p>
-        <p >${this.date}</p>
+        <p >${this.eventDate}</p>
         <p class="right bigger"> ${this.price} р.</p>
         <p class="right little marg"> Нажмите для подробностей </p>
        

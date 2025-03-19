@@ -8,6 +8,7 @@ namespace muzey.Data
     {
         public DbSet<UsersDB> UsersDB {  get; set; }
         public DbSet<Yslygi> Yslygi { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

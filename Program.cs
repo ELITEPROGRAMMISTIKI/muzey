@@ -14,12 +14,14 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireDigit = false;
-    options.User.AllowedUserNameCharacters = "ÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßàáâãäå¸æçèéêëìíîïğñòóôõö÷øùúûüışÿ";
+    options.User.AllowedUserNameCharacters = "ĞĞ‘Ğ’Ğ“Ğ”Ğ•ĞĞ–Ğ—Ğ˜Ğ™ĞšĞ›ĞœĞĞĞŸĞ Ğ¡Ğ¢Ğ£Ğ¤Ğ¥Ğ¦Ğ§Ğ¨Ğ©ĞªĞ«Ğ¬Ğ­Ğ®Ğ¯Ğ°Ğ±Ğ²Ğ³Ğ´ĞµÑ‘Ğ¶Ğ·Ğ¸Ğ¹ĞºĞ»Ğ¼Ğ½Ğ¾Ğ¿Ñ€ÑÑ‚ÑƒÑ„Ñ…Ñ†Ñ‡ÑˆÑ‰ÑŠÑ‹ÑŒÑÑÑ";
 
 })
     .AddRoles<IdentityRole>()
     .AddRussianIdentityErrorDescriber()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
