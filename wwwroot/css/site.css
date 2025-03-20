@@ -11,7 +11,10 @@
 /* Базовый стиль для всего body */
 body {
     font-family: 'Arsenal', sans-serif;
-    
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 ::-webkit-scrollbar {
@@ -39,10 +42,13 @@ h1, h2, h3, h4 {
     flex-direction: column;
     align-items: center;
     height: fit-content;
-    padding: 30px 0;
+    padding: 30px;
     position: sticky;
     top: 20px;
     background-color: rgba(247, 244, 242, 1);
+    box-shadow: 0 4px 12px rgba(77, 80, 97, 0.1);
+    border-radius: 12px;
+    margin: 20px 0;
 }
 
 /* Специальные стили с Ruslan Display */
@@ -81,18 +87,16 @@ button.cont-butt {
     background-color: rgba(175, 174, 179, 1);
     color: white;
     font-weight: 700;
-
+    transition: background-color 0.2s; /* Добавляем плавный переход */
 }
 
-    button.cont-butt:hover {
-        background-color: rgba(77, 80, 97, 1);
-    }
-    a.cont-butt{
-        color: rgba(175, 174, 179, 1);
-    }
-        a.cont-butt:hover {
-            filter: brightness(70%);
-        }
+button.cont-butt:hover {
+    background-color: rgba(77, 80, 97, 1);
+}
+
+button.cont-butt:active {
+    background-color: rgba(50, 52, 63, 1); /* Темнее при нажатии */
+}
 .pisanina {
     /*    padding-left: 250px;*/
     text-align: justify;
@@ -103,10 +107,23 @@ header nav, ul, nav .container, footer {
     background-color: rgba(211, 208, 177, 1);
 }
 
-footer {
-    position: relative;  /* или можно вообще убрать position */
-    width: 100%;
+/* Тень для хедера */
+header nav {
     background-color: rgba(211, 208, 177, 1);
+    box-shadow: 0 2px 8px rgba(77, 80, 97, 0.15);
+    position: relative;
+    z-index: 100; /* Чтобы тень отображалась над другими элементами */
+}
+
+footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background-color: rgba(211, 208, 177, 1);
+    margin-top: auto;
+    box-shadow: 0 -2px 8px rgba(77, 80, 97, 0.15);
+    z-index: 100;
 }
 
 header .navbar, footer {
@@ -127,6 +144,11 @@ header ul {
         color: white;
         filter: brightness(80%);
     }
+.row .nav{
+    background-color: rgba(247, 244, 242, 1);
+
+}
+
 
 .nav-item, .submit {
     border: none;
@@ -134,6 +156,11 @@ header ul {
     background-color: rgba(147, 6, 23, 1);
     margin-right: 20px;
     height: 100%;
+    transition: background-color 0.2s; /* Добавляем плавный переход */
+}
+
+.nav-item:active, .submit:active {
+    background-color: rgba(100, 4, 16, 1); /* Темнее при нажатии */
 }
 
 .link, .link:active {
@@ -171,21 +198,140 @@ header ul {
 
 #catalog_grid {
     align-self: center;
-    width: 80%;
+    width: 90%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 10px;
-    align-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
 }
 
 .item {
-    max-width: 200px;
-    min-width: 200px;
-    padding: 30px 20px;
-    border-radius: 6px;
+    max-width: 300px;
+    min-width: 300px;
+    padding: 25px;
+    border-radius: 12px;
     align-self: center;
-    margin: 10px;
+    margin: 15px;
+    background-color: rgba(247, 244, 242, 1);
+    box-shadow: 0 4px 12px rgba(77, 80, 97, 0.12);
+    transition: box-shadow 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
     border: none;
+    text-align: left;
+}
+
+/* Эффект при наведении */
+.item:hover {
+    background-color: rgba(252, 250, 248, 1);
+    box-shadow: 0 6px 16px rgba(77, 80, 97, 0.2);
+}
+
+/* Эффект при нажатии */
+.item:active {
+    background-color: rgba(242, 239, 237, 1);
+}
+
+/* Декоративная полоска сверху */
+.item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(147, 6, 23, 1);
+}
+
+/* Стили для текста внутри карточки */
+.item p {
+    margin: 8px 0;
+    color: rgba(77, 80, 97, 0.8);
+}
+
+.item .right {
+    text-align: left;
+}
+
+.item .bigger {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(147, 6, 23, 1);
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+/* Убираем стандартные стили кнопки */
+.item:focus {
+    outline: none;
+}
+
+/* Опционально: добавляем фокусное состояние для доступности */
+.item:focus-visible {
+    outline: 3px solid rgba(147, 6, 23, 0.5);
+    outline-offset: 2px;
+}
+
+.item h3 {
+    color: rgba(77, 80, 97, 1);
+    font-family: 'Ruslan', sans-serif;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.item p {
+    color: rgba(77, 80, 97, 0.8);
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.item .price {
+    font-weight: bold;
+    color: rgba(147, 6, 23, 1);
+    font-size: 1.2em;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(175, 174, 179, 0.3);
+}
+
+/* Стили для даты выставки */
+.item .event-date {
+    background-color: rgba(175, 174, 179, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: rgba(77, 80, 97, 0.9);
+}
+
+/* Стили для описания */
+.item .description {
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+/* Стили для кнопки подробнее */
+.item .details-button {
+    background-color: rgba(175, 174, 179, 1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.item .details-button:hover {
+    background-color: rgba(77, 80, 97, 1);
+}
+
+.item .details-button:active {
+    background-color: rgba(147, 6, 23, 1);
 }
 
 .right {
@@ -206,8 +352,10 @@ header ul {
 }
 
 main {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    padding-bottom: 70px; /* Высота футера */
 }
 
 .cont-add-ysl {
@@ -235,13 +383,86 @@ main {
     }
 
 .big-card {
-    background-color: rgba(175, 174, 179, 1);
-    display: felx;
+    background-color: rgba(247, 244, 242, 1);
+    display: flex;
+    flex-direction: column;
     align-self: center;
-    height: 700px;
     width: 80%;
-    align-content: center;
-    justify-items: center;
+    max-width: 1000px;
+    min-height: 700px; /* Минимальная высота вместо фиксированной */
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 6px 16px rgba(77, 80, 97, 0.15);
+}
+
+/* Контейнер для прокручиваемого контента */
+.big-card-content {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.big-card h2 {
+    color: rgba(77, 80, 97, 1);
+    font-family: 'Ruslan', sans-serif;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+.big-card p {
+    color: rgba(77, 80, 97, 0.8);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    white-space: pre-wrap; /* Сохраняем переносы строк и пробелы */
+    word-wrap: break-word; /* Разрешаем перенос длинных слов */
+}
+
+/* Стиль для даты */
+.big-card p:nth-of-type(1) {
+    background-color: rgba(175, 174, 179, 0.2);
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 500;
+}
+
+/* Контейнер для цены и кнопки */
+.price-buy-container {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(175, 174, 179, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-buy-container p {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: rgba(147, 6, 23, 1);
+    margin: 0;
+}
+
+.buy-button {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    width: 200px;
+}
+
+.buy-button:hover {
+    background-color: rgba(177, 7, 28, 1);
+}
+
+.buy-button:active {
+    background-color: rgba(127, 5, 20, 1);
 }
 
 .reviews-container {
@@ -351,11 +572,15 @@ textarea {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s; /* Добавляем плавный переход */
 }
 
 .delete-review:hover {
     filter: brightness(80%);
+}
+
+.delete-review:active {
+    filter: brightness(60%); /* Еще темнее при нажатии */
 }
 
 /* Стилизация скроллбара */
@@ -375,4 +600,247 @@ textarea {
 
 .reviews-list::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+#profile-form {
+    background-color: rgba(247, 244, 242, 1);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+#profile-form .form-floating {
+    margin-bottom: 15px;
+}
+
+#profile-form input {
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+#update-profile-button {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    transition: background-color 0.2s; /* Добавляем плавный переход */
+}
+
+#update-profile-button:hover {
+    filter: brightness(80%);
+}
+
+#update-profile-button:active {
+    filter: brightness(60%); /* Еще темнее при нажатии */
+}
+
+/* Переопределяем стили для навигации в личном кабинете */
+
+.nav-pills .nav-link:hover {
+    filter: brightness(80%);
+
+}
+
+/* Активная (текущая) страница */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    filter: brightness(80%);
+
+
+    color: white !important;
+}
+
+/* Момент нажатия */
+.nav-pills .nav-link:active {
+    filter: brightness(80%);
+
+
+}
+
+/* Общие стили для всех форм (кроме отзывов) */
+.coolForm, 
+#profile-form,
+.cont-add-ysl {
+    background-color: rgba(247, 244, 242, 1);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Стили для элементов внутри форм (кроме отзывов) */
+.coolForm .form-floating,
+#profile-form .form-floating,
+.cont-add-ysl .form-floating {
+    margin-bottom: 15px;
+}
+
+/* Стили для инпутов и текстареа (кроме отзывов) */
+.coolForm input,
+#profile-form input,
+.cont-add-ysl input {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Стили для кнопок в формах (кроме отзывов) */
+.coolForm button,
+#profile-form button,
+.cont-add-ysl button {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Ховер эффект для кнопок (кроме отзывов) */
+.coolForm button:hover,
+#profile-form button:hover,
+.cont-add-ysl button:hover {
+    filter: brightness(80%);
+}
+
+/* Активное состояние кнопок (кроме отзывов) */
+.coolForm button:active,
+#profile-form button:active,
+.cont-add-ysl button:active {
+    filter: brightness(60%);
+}
+
+/* Стили для сообщений об ошибках */
+.text-danger {
+    color: rgba(147, 6, 23, 1) !important;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Центрирование форм на странице */
+.col-md-4,
+.form-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Стили для заголовков форм */
+h1.center {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Стили для форм в личном кабинете */
+.manage-form {
+    background-color: rgba(247, 244, 242, 1);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+.manage-form input {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.manage-form button {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.manage-form button:hover {
+    filter: brightness(80%);
+}
+
+.manage-form button:active {
+    filter: brightness(60%);
+}
+
+/* Стили для навигационных кнопок */
+.nav-pills {
+    display: flex;
+    background-color: rgba(175, 174, 179, 1);
+
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nav-pills .nav-link, .row .nav-item {
+    color: white !important;
+    background-color: rgba(175, 174, 179, 1);
+    transition: background-color 0.2s;
+}
+
+.nav-pills .nav-link:hover {
+    filter: brightness(80%);
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: unset; 
+}
+.nav-pills .nav-link.active {
+    filter: brightness(60%);
+}
+
+/* Стили для форм */
+.row {
+    flex-wrap: nowrap;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.row form {
+    background-color: rgba(247, 244, 242, 1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Стили для полей ввода */
+.row input {
+    margin-bottom: 10px;
+}
+
+/* Стили для кнопок в формах */
+.row button[type="submit"],
+.row input[type="submit"] {
+    background-color: rgba(147, 6, 23, 1);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.row button[type="submit"]:hover,
+.row input[type="submit"]:hover {
+    filter: brightness(80%);
 }

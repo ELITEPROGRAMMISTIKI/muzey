@@ -11,56 +11,18 @@ $(document).on('click', '.nav-link[data-page="add_ysl"]', function (e) {
 $(document).on('click', '.cont-butt[data-action="history"]', function (e) {
     e.preventDefault(); 
     ShowHistory();
-
 })
+
 $(document).on('click', '.cont-butt[data-action="otzivi"]', function (e) {
     e.preventDefault();
     ShowOtzivi();
-
 })
 
 $(document).on('click', '.cont-butt[data-action="collections"]', function (e) {
     e.preventDefault(); 
     ShowCollections();
 })
-$(document).on('click', '.cont-butt[data-action="otzivi"]', function (e) {
-    e.preventDefault();
-    ShowOtzivi();
 
-})
-
-// Добавляем обработчик отправки отзыва
-$(document).on('click', 'button[data-action="submit-review"]', function(e) {
-    e.preventDefault();
-    const text = $('#reviewText').val();
-    
-    if (!text) {
-        alert('Пожалуйста, введите текст отзыва');
-        return;
-    }
-
-    $.ajax({
-        method: 'POST',
-        url: 'api/reviews/add',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            text: text
-        })
-    }).done(function(response) {
-        console.log('Success:', response);
-        LoadReviews();
-        $('#reviewText').val('');
-    }).fail(function(error) {
-        console.error('Error:', error);
-        alert('Произошла ошибка при отправке отзыва');
-    });
-});
-$(document).on('click', '.cont-butt[data-action="news"]', function (e) {
-    e.preventDefault();
-    ShowNews();
-
-
-})
 $(document).on('click', '.cont-butt[data-action="contacts"]', function (e) {
     e.preventDefault();
     ShowContacts();
@@ -153,14 +115,6 @@ const ShowCollections = () => {
         </p>
         </div>
 
-        `
-    )
-}
-
-const ShowNews = () => {
-    $('.pisanina').html(
-        `
-        <h1>Новости</h1>
         `
     )
 }
@@ -327,15 +281,19 @@ const OpenYsl = (itemId) => {
         console.log(data);
         data = data.find(p => p.id == itemId);
         console.log(data);
-
-      
+        
         $('.pb-3').html(
             `
             <div class="big-card">
-                <h2>${data.name}</h2>  
-                <p>${data.eventDate}</p>
-                <p>${data.description}</p>
-                <p>Цена: ${data.price}</p>
+                <h2>${data.name}</h2>
+                <div class="big-card-content">
+                    <p>${data.eventDate}</p>
+                    <p>${data.description}</p>
+                </div>
+                <div class="price-buy-container">
+                    <p>Цена: ${data.price} ₽</p>
+                    <button class="buy-button">Купить билет</button>
+                </div>
             </div>
             `
         );
