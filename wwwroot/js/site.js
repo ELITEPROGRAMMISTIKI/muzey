@@ -186,8 +186,31 @@ const ShowOtzivi = () => {
         `
     );
     
-    // Загружаем отзывы сразу после отрисовки HTML
     LoadReviews();
+}
+const ShowContacts = () => {
+    $('.pisanina').html(
+        `
+        <h1>Контакты</h1>
+
+        <h3>Адрес</h3>
+        <p>ул. Пушкина 162-б</p>
+
+        <h3>Информационно-справочная служба музея </h3>
+        <p>8 (495) 637-56-74</p>
+
+        <h3>Режим работы</h3>
+        <p>пн-вт 9:00 - 20:00</p>
+        <p>среда не работаем</p>
+        <p>чт-вс 8:00 - 20:00</p>
+
+        <h3>Экскурсионное бюро</h3>
+        <p>8 (495) 637-32-56</p>
+        <div class="iframe">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4599498.948408885!2d27.84131012500001!3d55.743750899999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bac367175d9%3A0xb9384e1a3b2da434!2z0JPQvtGB0YPQtNCw0YDRgdGC0LLQtdC90L3Ri9C5INC80YPQt9C10Lkg0JAu0KEuINCf0YPRiNC60LjQvdCw!5e0!3m2!1sru!2sru!4v1742369543557!5m2!1sru!2sru" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        `
+    )
 }
 
 // Добавим функцию проверки роли администратора
@@ -257,26 +280,7 @@ $(document).on('click', '.delete-review', function() {
             }
         });
     }
-});const ShowContacts = () => {
-    $('.pisanina').html(
-        `
-        <h1>Контакты</h1>
-
-        <h2>Адрес</h2>
-        <p> </p>
-
-        <h2>Информационно-справочная служба музея </h2>
-        <p> </p>
-
-        <h2>Режим работы</h2>
-        <p> </p>
-
-        <h2>Экскурсионное бюро</h2>
-        <p> </p>
-        `
-    )
-}
-
+});
 //const OpenAkk = () => {
 //    $('main').html(
 

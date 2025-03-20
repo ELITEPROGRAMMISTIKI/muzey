@@ -17,13 +17,23 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
-
+.pisanina h3 {
+    
+    color: rgba(77, 80, 97, 1);
+}
 .text-center {
     display: grid;
     grid-template-columns: 1fr 5fr;
     gap: 50px;
 }
-
+.iframe{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+h1, h2, h3, h4 {
+    font-family: 'Ruslan', sans-serif;
+}
 .cont-butts {
     display: flex;
     flex-direction: column;
@@ -45,11 +55,6 @@ a.navbar-brand, a.navbar-brand:active {
 
 h1 {
     margin: 30px 0;
-    font-family: 'Ruslan', sans-serif;
-}
-
-.cont-butts h3 {
-    font-family: 'Ruslan', sans-serif;
 }
 
     .col-md-4, h1.center {
